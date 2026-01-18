@@ -8,3 +8,4 @@ Promise.resolve().then(() => {
 
 // Microtask : IMP one do it ASAP. 
 // MAcrotask : You can do it later on 
+
