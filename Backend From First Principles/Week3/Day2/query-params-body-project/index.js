@@ -23,7 +23,7 @@ const users = [
 // 1) Req
 
 app.get("./users", (req, res) => {
-  const { Role } = req.query;
+  const { role } = req.query;
 
   const result = users;
 
