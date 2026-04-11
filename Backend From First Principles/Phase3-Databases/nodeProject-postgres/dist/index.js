@@ -47,26 +47,35 @@ const pgClient = new pg_1.Client({
 });
 // connecting to db
 pgClient.connect();
+// route 1
 app.get("/", (req, res) => {
     res.status(200).json({
         message: "You are on homepage",
     });
 });
+// route 2
 app.post("/signup", async (req, res) => {
-    const userName = req.body.userName;
-    const email = req.body.email;
-    const password = req.body.password;
-    // Insert Query
-    const insertQuery = `INSERT INTO users (userName,email,password) VALUES (${userName}, ${email}, ${password})`;
-    const responese = await pgClient.query(insertQuery);
-    res.status(201).json({
-        success: true,
-        message: "You have signup successfully",
-    });
+    try {
+        const { userName, email, password } = req.body;
+        const query = `
+      INSERT INTO users (username, email, password)
+      VALUES ($1, $2, $3)
+    `;
+        console.log(query);
+        await pgClient.query(query, [userName, email, password]);
+        res.status(201).json({
+            message: "Signup successful",
+        });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error occurred" });
+    }
 });
 // -----------------------------------------------------
 const port = 3000;
 app.listen(port, () => {
     console.log("Server is running at port : 3000");
 });
+// -----------------------------------------------------
 //# sourceMappingURL=index.js.map

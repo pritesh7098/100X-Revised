@@ -4,7 +4,7 @@
 
 /* const pgClient = new Client("psql 'postgresql://neondb_owner:npg_YMfEB8iW7ewJ@ep-restless-moon-am7qb659-pooler.c-5.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'") /
 
-// alternate approach 
+// alternate approach  
 
 const pgClient = new Client({
   user: "neondb_owner",
@@ -53,8 +53,7 @@ const pgClient = new Client({
 
 pgClient.connect();
 
-
-// route 1 
+// route 1
 
 app.get("/", (req, res) => {
   res.status(200).json({
@@ -65,22 +64,25 @@ app.get("/", (req, res) => {
 // route 2
 
 app.post("/signup", async (req, res) => {
-  const userName = req.body.userName;
-  const email = req.body.email;
-  const password = req.body.password;
+  try {
+    const { userName, email, password } = req.body;
 
-  // Insert Query
+    const query = `
+      INSERT INTO users (username, email, password)
+      VALUES ($1, $2, $3)
+    `;
 
-  const insertQuery = `INSERT INTO users 
-  (userName,email,password) 
-  VALUES (${userName}, ${email}, ${password})`;
+    console.log(query);
 
-  const response = await pgClient.query(insertQuery);
+    await pgClient.query(query, [userName, email, password]);
 
-  res.status(201).json({
-    success: true,
-    message: "You have signup successfully",
-  });
+    res.status(201).json({
+      message: "Signup successful",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error occurred" });
+  }
 });
 
 // -----------------------------------------------------
@@ -91,5 +93,6 @@ app.listen(port, () => {
   console.log("Server is running at port : 3000");
 });
 
-
 // -----------------------------------------------------
+
+// Learned about transactions, joins etc 
