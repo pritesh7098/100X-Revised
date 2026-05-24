@@ -81,4 +81,4 @@ const teamLead: TeamLead = {
   age: 24,
   address: "pune",
   salary: 22000,
-}; // getting properties og both employee and manager now
+}; // getting properties of both employee and manager now
