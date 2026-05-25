@@ -46,8 +46,55 @@ class Manager implements People {
   }
 }
 
+let user = new Manager("Don", 30);
+//console.log(user);
 
-let user = new Manager("Don", 30)
-console.log(user);
+/* Some practice  */
 
-// cont from abstract classes 57.49 
+interface Admin {
+  name: string;
+  permisions: string;
+}
+
+interface User {
+  name: string;
+  age: number;
+}
+
+type userOrAdmin = Admin | User; // OR operator
+
+function greeting2(user: userOrAdmin) {
+  // console.log("hello", +user.name);
+}
+
+// Arrays in TS
+
+interface Address {
+  city: string;
+  pincode: number;
+}
+
+interface User {
+  name: string;
+  age: number;
+  addresses: Address[];
+}
+
+// now this use has multiple addreses
+
+let myUser1: User = {
+  name: "pritesh",
+  age: 24,
+  addresses: [
+    {
+      city: "pune",
+      pincode: 123,
+    },
+    {
+      city: "PCMC",
+      pincode: 1234,
+    },
+  ],
+};
+
+// cont fom filters - 1.37 
