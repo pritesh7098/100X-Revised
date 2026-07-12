@@ -41,3 +41,36 @@ function makeCha2(order: {
   return 4; // in case if you are giving type to function
   //  console.log(3); // in case you are not giving type to fun
 }
+
+/* ------------------------- */
+
+// Generics in TS
+
+function wrapInArray<T>(item: T): T[] {
+  return [item];
+}
+
+wrapInArray("string");
+wrapInArray(22);
+wrapInArray(true);
+
+// another example
+
+function pair<A, B>(a: A, b: B): [A, B] {
+  return [a, b];
+}
+
+pair("string", true);
+
+// we can make an interface as an generics
+
+interface Box<datatype> {
+  content: datatype;
+}
+
+const numberBox: Box<number> = { content: 10 };
+const stringBox: Box<string> = { content: "string" };
+
+
+// Real world use case  
+
