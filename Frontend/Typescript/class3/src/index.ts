@@ -71,6 +71,36 @@ interface Box<datatype> {
 const numberBox: Box<number> = { content: 10 };
 const stringBox: Box<string> = { content: "string" };
 
+// Real world use case
 
-// Real world use case  
+/* ----------------------------------------------- */
+
+// Chapter 3 : KeyOf operator in TS.
+
+type PersonT = {
+  name: string;
+  age: number;
+  isEmp: boolean;
+};
+
+let personData: PersonT = {
+  name: "pritesh dhanad",
+  age: 24,
+  isEmp: true,
+};
+
+/* ------- */
+
+// keyOf 
+
+type PersonX = keyof PersonT; // here it will take it's keys only not values
+
+let myPersonData: PersonX;
+
+myPersonData = "name";
+myPersonData = "age";
+myPersonData = "isEmp";
+myPersonData = "salary" // throws an erroe as it's not belongs to PersonT
+
+let myAnotherPerson: keyof PersonT="name";
 
